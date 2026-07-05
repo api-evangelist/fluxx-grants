@@ -1,0 +1,119 @@
+aid: fluxx-grants
+url: https://raw.githubusercontent.com/api-evangelist/fluxx-grants/refs/heads/main/apis.yml
+name: Fluxx
+kind: company
+description: Fluxx is a cloud grants management platform for foundations, government
+  agencies, corporations, and nonprofits, covering the full grant lifecycle from
+  funding announcement through pre-award applications, post-award payments, and
+  measurement and evaluation. Fluxx Grantmaker includes a RESTful API (REST API v2)
+  available to customers for building custom integrations with financial, CRM, and
+  business-intelligence systems. The API is exposed per-client on each customer's
+  own Fluxx instance under https://{client}.fluxx.io/api/rest/v2, is authenticated
+  with OAuth 2.0 credentials created in that instance, and is driven by a dynamic,
+  instance-specific data model whose reference documentation is generated at
+  /api/rest/v2/doc for each deployment. Because the surface is per-instance and
+  gated behind an authenticated customer deployment, the endpoints below are
+  honestly modeled from Fluxx's documented REST v2 conventions rather than pulled
+  from a single public reference.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Grants Management
+- Grantmaking
+- Nonprofit
+- Philanthropy
+- Foundations
+- REST API
+created: '2026-07-05'
+modified: '2026-07-05'
+specificationVersion: '0.19'
+apis:
+- aid: fluxx-grants:fluxx-grants-records-api
+  name: Fluxx Records API
+  tags:
+  - Records
+  - Models
+  - Grant Requests
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://www.fluxx.io/products/grantmaker-fluxx-grants-management-software
+  baseURL: https://{client}.fluxx.io/api/rest/v2
+  properties:
+  - url: https://www.fluxx.io/products/grantmaker-fluxx-grants-management-software
+    type: Documentation
+  - url: README.md
+    type: Overview
+  description: RESTful create, list, get, update, and delete access to Fluxx model
+    records such as GrantRequest, Organization, and RequestTransaction under
+    /api/rest/v2/{model}. Supports column selection (cols), record filtering
+    (filter, e.g. grant_id eq R-2024-00003), and pagination (page, per_page).
+    Endpoints are modeled from Fluxx REST v2 conventions; the concrete field set
+    and available models are defined per customer instance and are gated behind
+    that instance.
+- aid: fluxx-grants:fluxx-grants-oauth-api
+  name: Fluxx OAuth API
+  tags:
+  - Authentication
+  - OAuth
+  - Tokens
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://github.com/fluxxlabs/fluxx_api_toolkit_java
+  baseURL: https://{client}.fluxx.io/oauth
+  properties:
+  - url: https://github.com/fluxxlabs/fluxx_api_toolkit_java
+    type: Documentation
+  - url: README.md
+    type: Overview
+  description: OAuth 2.0 authorization for the Fluxx REST API. Administrators
+    register an application at /oauth/applications on their instance to obtain a
+    client ID and client secret, then exchange them for an access token at
+    /oauth/token. Endpoints are modeled from Fluxx's documented OAuth flow; the
+    authorization surface lives on each customer's own instance.
+- aid: fluxx-grants:fluxx-grants-documents-api
+  name: Fluxx Documents API
+  tags:
+  - Documents
+  - Files
+  - Attachments
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://github.com/RockefellerArchiveCenter/fluxx_exporter
+  baseURL: https://{client}.fluxx.io/api/rest/v2
+  properties:
+  - url: https://github.com/RockefellerArchiveCenter/fluxx_exporter
+    type: Documentation
+  - url: README.md
+    type: Overview
+  description: Access to files and documents attached to grant records, exposed
+    through Fluxx document models (such as ModelDocument) under
+    /api/rest/v2/{model}. Used to list and retrieve attachments associated with a
+    GrantRequest or other record. Endpoints are modeled from Fluxx REST v2
+    conventions and are gated behind the customer instance.
+- aid: fluxx-grants:fluxx-grants-users-api
+  name: Fluxx Users and Organizations API
+  tags:
+  - Users
+  - Organizations
+  - People
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://www.fluxx.io/products/grantmaker-fluxx-grants-management-software
+  baseURL: https://{client}.fluxx.io/api/rest/v2
+  properties:
+  - url: https://www.fluxx.io/products/grantmaker-fluxx-grants-management-software
+    type: Documentation
+  - url: README.md
+    type: Overview
+  description: RESTful access to Fluxx people and organization records - the User
+    and Organization models under /api/rest/v2/{model} that represent grantees,
+    grantseekers, staff, and funding organizations. Endpoints are modeled from
+    Fluxx REST v2 conventions; concrete fields and permissions are defined per
+    customer instance.
+common:
+- type: LinkedIn
+  url: https://www.linkedin.com/company/fluxx
+- type: Website
+  url: https://www.fluxx.io/
+- type: GitHubOrganization
+  url: https://github.com/fluxxlabs
+- type: Documentation
+  url: https://www.fluxx.io/resource-center
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

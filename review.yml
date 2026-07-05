@@ -1,0 +1,104 @@
+aid: fluxx-grants
+name: Fluxx
+review:
+  question: Does Fluxx expose a documented public WebSocket API?
+  answer: false
+  date: '2026-07-05'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was authored. Fluxx's REST API v2 is pure
+    request/response REST over HTTPS. There is no documented server-push
+    transport (WebSocket or Server-Sent Events) on the Fluxx API to model, and
+    the API surface itself is gated per customer instance, so no realtime
+    channel exists to describe.
+findings:
+  summary: |
+    Fluxx does expose a real, documented REST API, but it is not a public,
+    self-serve developer API. Fluxx Grantmaker ships a RESTful "REST API v2"
+    available to customers for building custom integrations. The API is
+    instance-scoped: each customer's own Fluxx deployment serves it under
+    https://{client}.fluxx.io/api/rest/v2, and the reference documentation is
+    generated per instance at /api/rest/v2/doc (for example
+    /api/rest/v2/doc/GrantRequest). Access is gated behind an authenticated
+    Fluxx deployment and OAuth 2.0 credentials that an administrator creates in
+    that instance at /oauth/applications, then exchanges at /oauth/token. The
+    data model is dynamic and instance-specific - available models, fields, and
+    permissions vary by deployment - so there is no single public OpenAPI or
+    hosted API reference to cite. The endpoints recorded here are honestly
+    modeled from Fluxx's documented REST v2 conventions and from third-party
+    integrations (the archived Fluxx Java API toolkit and the Rockefeller
+    Archive Center fluxx_exporter). No WebSocket (ws:// or wss://) endpoint is
+    documented anywhere in Fluxx's API surface.
+  accessModel: |
+    Gated / per-client-instance. The REST API v2 is included with Fluxx
+    Grantmaker (enterprise, contact-sales) and is enabled per customer. It is
+    not available as a public sandbox or self-serve developer program. Because
+    docs and endpoints are generated on each customer's authenticated instance,
+    the endpoints below are modeled (endpointsModeled), not harvested from a
+    public reference.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://{client}.fluxx.io/api/rest/v2
+      documented: true
+      note: Instance-scoped REST API v2. Reference docs generated per instance at /api/rest/v2/doc.
+    - protocol: OAuth
+      scheme: https
+      baseURL: https://{client}.fluxx.io/oauth
+      documented: true
+      note: OAuth 2.0 application registration at /oauth/applications, token exchange at /oauth/token.
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented anywhere in Fluxx's REST API v2 or product docs as of the review date.
+  endpointsModeled:
+    - POST   https://{client}.fluxx.io/oauth/token
+    - GET    https://{client}.fluxx.io/oauth/applications
+    - GET    https://{client}.fluxx.io/api/rest/v2/doc
+    - GET    https://{client}.fluxx.io/api/rest/v2/doc/{Model}
+    - GET    https://{client}.fluxx.io/api/rest/v2/{model}
+    - POST   https://{client}.fluxx.io/api/rest/v2/{model}
+    - GET    https://{client}.fluxx.io/api/rest/v2/{model}/{id}
+    - PUT    https://{client}.fluxx.io/api/rest/v2/{model}/{id}
+    - DELETE https://{client}.fluxx.io/api/rest/v2/{model}/{id}
+    - GET    https://{client}.fluxx.io/api/rest/v2/grant_request
+    - GET    https://{client}.fluxx.io/api/rest/v2/grant_request/{id}
+    - GET    https://{client}.fluxx.io/api/rest/v2/organization
+    - GET    https://{client}.fluxx.io/api/rest/v2/user
+    - GET    https://{client}.fluxx.io/api/rest/v2/request_transaction
+    - GET    https://{client}.fluxx.io/api/rest/v2/model_document
+  queryParameters:
+    - name: cols
+      note: JSON array of field/relation names to return for each record.
+    - name: filter
+      note: Three-part field/relator/value criteria, e.g. "grant_id eq R-2024-00003" or "created_at last-n-months 5".
+    - name: page
+      note: Page offset for paginated result sets.
+    - name: per_page
+      note: Number of records returned per page.
+sources:
+  - url: https://www.fluxx.io/products/grantmaker-fluxx-grants-management-software
+    type: Documentation
+    note: Confirms Fluxx Grantmaker includes a REST API available to all customers for custom integrations; enterprise contact-sales pricing.
+  - url: https://github.com/fluxxlabs/fluxx_api_toolkit_java
+    type: SourceCode
+    note: Official (now archived) Fluxx Java API toolkit; documents OAuth key/secret creation at /oauth/applications and per-instance docs at /api/rest/v{n}/doc.
+  - url: https://github.com/RockefellerArchiveCenter/fluxx_exporter
+    type: SourceCode
+    note: Third-party exporter documenting /api/rest/v2/doc, GrantRequest model, OAuth client-credential flow, and cols/filter/page/per_page query parameters.
+  - url: https://www.newtarget.com/web-insights-blog/integrating-fluxx-grants-management-system/
+    type: Article
+    note: Independent confirmation that Fluxx exposes a RESTful API over HTTP for external integrations.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket protocol surface exists, and Fluxx's own API is
+    request/response REST (REST API v2) with OAuth 2.0. No AsyncAPI document
+    was created because there is no server-push transport to model. Because the
+    API is gated per customer instance with a dynamic, instance-specific data
+    model and no single public reference, the apis.yml entry marks its
+    endpoints as modeled from documented REST v2 conventions rather than
+    fabricating a full public surface, and no OpenAPI, plans, rate-limit,
+    finops, or collection artifacts were authored.
