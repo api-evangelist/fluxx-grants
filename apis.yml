@@ -106,6 +106,12 @@ apis:
     Fluxx REST v2 conventions; concrete fields and permissions are defined per
     customer instance.
 common:
+- type: TrustCenter
+  url: security/fluxx-grants-trust-center.yml
+- type: VulnerabilityDisclosure
+  url: security/fluxx-grants-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/fluxx-grants-domain-security.yml
 - type: LinkedIn
   url: https://www.linkedin.com/company/fluxx
 - type: Website
