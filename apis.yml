@@ -15,7 +15,18 @@ description: Fluxx is a cloud grants management platform for foundations, govern
   gated behind an authenticated customer deployment, the endpoints below are
   honestly modeled from Fluxx's documented REST v2 conventions rather than pulled
   from a single public reference.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: unknown
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Unknown
+  confidence: low
+  source: []
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/fluxx-grants.png
 tags:
 - Grants Management
 - Grantmaking
