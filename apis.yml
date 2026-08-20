@@ -30,6 +30,13 @@ image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/fluxx-gran
 tags:
 - Grants Management
 - Grantmaking
+- Non-Profit
+- Philanthropy
+- Foundations
+- REST API
+tags_raw:
+- Grants Management
+- Grantmaking
 - Nonprofit
 - Philanthropy
 - Foundations
@@ -63,6 +70,9 @@ apis:
   name: Fluxx OAuth API
   tags:
   - Authentication
+  - Tokens
+  tags_raw:
+  - Authentication
   - OAuth
   - Tokens
   image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
@@ -82,6 +92,10 @@ apis:
   name: Fluxx Documents API
   tags:
   - Documents
+  - File
+  - Attachments
+  tags_raw:
+  - Documents
   - Files
   - Attachments
   image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
@@ -100,6 +114,10 @@ apis:
 - aid: fluxx-grants:fluxx-grants-users-api
   name: Fluxx Users and Organizations API
   tags:
+  - User
+  - Organization
+  - People
+  tags_raw:
   - Users
   - Organizations
   - People
