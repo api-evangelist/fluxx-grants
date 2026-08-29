@@ -15,6 +15,17 @@ description: Fluxx is a cloud grants management platform for foundations, govern
   gated behind an authenticated customer deployment, the endpoints below are
   honestly modeled from Fluxx's documented REST v2 conventions rather than pulled
   from a single public reference.
+deliveryModel:
+  model: unknown
+  open_source: false
+  commercial: false
+  callable_host: false
+  label: Delivery model not determined — needs a product licence on record
+  confidence: low
+  source:
+  - none
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: unknown
   onboarding: unknown
