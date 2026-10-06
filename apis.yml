@@ -53,7 +53,7 @@ tags_raw:
 - Foundations
 - REST API
 created: '2026-07-05'
-modified: '2026-07-05'
+modified: '2026-10-06'
 specificationVersion: '0.23'
 apis:
 - aid: fluxx-grants:fluxx-grants-records-api
@@ -146,6 +146,10 @@ apis:
     Fluxx REST v2 conventions; concrete fields and permissions are defined per
     customer instance.
 common:
+- url: https://www.fluxx.io/blog
+  type: Blog
+- url: https://www.fluxx.io/blog/rss.xml
+  type: BlogRSS
 - type: TrustCenter
   url: security/fluxx-grants-trust-center.yml
 - type: VulnerabilityDisclosure
