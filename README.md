@@ -1,4 +1,4 @@
-# Fluxx (fluxx-grants)
+# Fluxx
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,81 +64,91 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Fluxx is a cloud grants management platform for foundations, government agencies, corporations, and nonprofits, covering the full grant lifecycle - from funding announcement through pre-award applications, post-award payments, and measurement and evaluation. Founded in 2010 and headquartered in San Francisco, Fluxx is "purpose-built by grantmakers for grantmaking" and ranks as a leading grants management solution in the Technology Association of Grantmakers survey.
+Fluxx is a cloud grants management platform for foundations, government agencies, corporations, and nonprofits, covering the full grant lifecycle from funding announcement through pre-award applications, post-award payments, and measurement and evaluation. Fluxx Grantmaker includes a RESTful API (REST API v2) available to customers for building custom integrations with financial, CRM, and business-intelligence systems. The API is exposed per-client on each customer's own Fluxx instance under https://{client}.fluxx.io/api/rest/v2, is authenticated with OAuth 2.0 credentials created in that instance, and is driven by a dynamic, instance-specific data model whose reference documentation is generated at /api/rest/v2/doc for each deployment. Because the surface is per-instance and gated behind an authenticated customer deployment, the endpoints below are honestly modeled from Fluxx's documented REST v2 conventions rather than pulled from a single public reference.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/fluxx-grants/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/fluxx-grants/refs/heads/main/apis.yml)
+**Areas:** Grants Management · Grantmaking · Non-Profit · Philanthropy · Foundations · REST API
 
-## Access Model (Read This First)
+## Fluxx on APIs.io
 
-Fluxx exposes a **real, documented REST API (REST API v2)** - but it is **not a public, self-serve developer API**. Access is **gated per customer instance**:
+Everything profiled for Fluxx is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/fluxx-grants/](https://apis.io/providers/fluxx-grants/)** — or go straight to one of the APIs or properties below.
 
-- The API is included with **Fluxx Grantmaker** (enterprise, contact-sales) and is enabled per customer.
-- It is served from each customer's own Fluxx deployment under `https://{client}.fluxx.io/api/rest/v2`.
-- The **reference documentation is generated per instance** at `/api/rest/v2/doc` (for example `/api/rest/v2/doc/GrantRequest`), so there is no single hosted public API reference or OpenAPI to link to.
-- The data model is **dynamic and instance-specific**: available models, fields, and permissions are configured per deployment.
+### APIs (4)
 
-Because the surface lives behind an authenticated customer instance, the endpoints in this catalog are **honestly modeled** (`endpointsModeled`) from Fluxx's documented REST v2 conventions and from third-party integrations, rather than harvested from a public reference. No OpenAPI, plans, rate-limit, FinOps, or collection artifacts were fabricated.
+- [Fluxx Records API](https://apis.io/apis/fluxx-grants/fluxx-grants-records-api/) — RESTful create, list, get, update, and delete access to Fluxx model records such as GrantRequest, Organization, and RequestTransaction under…
+- [Fluxx OAuth API](https://apis.io/apis/fluxx-grants/fluxx-grants-oauth-api/) — OAuth 2.0 authorization for the Fluxx REST API. Administrators register an application at /oauth/applications on their instance to obtain a client ID and…
+- [Fluxx Documents API](https://apis.io/apis/fluxx-grants/fluxx-grants-documents-api/) — Access to files and documents attached to grant records, exposed through Fluxx document models (such as ModelDocument) under /api/rest/v2/{model}. Used to…
+- [Fluxx Users and Organizations API](https://apis.io/apis/fluxx-grants/fluxx-grants-users-api/) — RESTful access to Fluxx people and organization records - the User and Organization models under /api/rest/v2/{model} that represent grantees, grantseekers,…
 
-## Design: Per-Client Instance + Dynamic Model
+### Published properties
 
-Fluxx is a multi-tenant SaaS where each customer gets its own instance (subdomain). The REST API mirrors that:
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-- **Per-client base URL** - every request targets the customer's own host, e.g. `https://acme-foundation.fluxx.io/api/rest/v2`.
-- **Dynamic model API** - records are accessed generically as `/api/rest/v2/{model}` (e.g. `grant_request`, `organization`, `user`, `request_transaction`, `model_document`). The set of models and their fields is defined by the instance's configuration, and the per-instance `/api/rest/v2/doc` endpoint enumerates what is actually available for that deployment.
-- **OAuth 2.0** - an administrator registers an application at `/oauth/applications` on the instance to get a client ID and secret, then exchanges them for an access token at `/oauth/token`.
-- **Query conventions** - list requests support `cols` (select fields/relations), `filter` (three-part `field relator value` criteria such as `grant_id eq R-2024-00003` or `created_at last-n-months 5`), and `page` / `per_page` pagination.
+#### Security (3)
 
-## APIs
+Authentication, trust centre, and vulnerability disclosure.
 
-### Fluxx Records API
+- [Fluxx Grants Domain Security](https://apis.io/security/fluxx-grants/fluxx-grants-domain-security/)
+- [Fluxx Grants Trust Center](https://apis.io/security/fluxx-grants/fluxx-grants-trust-center/)
+- [Fluxx Grants Vulnerability Disclosure](https://apis.io/security/fluxx-grants/fluxx-grants-vulnerability-disclosure/)
 
-RESTful create, list, get, update, and delete access to Fluxx model records such as `GrantRequest`, `Organization`, and `RequestTransaction` under `/api/rest/v2/{model}`. Supports column selection, filtering, and pagination. Modeled from REST v2 conventions; concrete fields and available models are per instance.
+## Where to find this API
 
-- **Base URL:** `https://{client}.fluxx.io/api/rest/v2`
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-### Fluxx OAuth API
-
-OAuth 2.0 authorization for the REST API. Register an application at `/oauth/applications`, obtain a client ID and secret, then exchange them for an access token at `/oauth/token`.
-
-- **Base URL:** `https://{client}.fluxx.io/oauth`
-
-### Fluxx Documents API
-
-Access to files and documents attached to grant records via Fluxx document models (such as `ModelDocument`) under `/api/rest/v2/{model}`. Used to list and retrieve attachments associated with a `GrantRequest` or other record.
-
-- **Base URL:** `https://{client}.fluxx.io/api/rest/v2`
-
-### Fluxx Users and Organizations API
-
-RESTful access to Fluxx people and organization records - the `User` and `Organization` models under `/api/rest/v2/{model}` that represent grantees, grantseekers, staff, and funding organizations.
-
-- **Base URL:** `https://{client}.fluxx.io/api/rest/v2`
-
-## Pricing
-
-Fluxx Grantmaker (the grantmaker/foundation product that includes the REST API) is **enterprise, contact-sales** - no public pricing is published; the site directs prospects to request a demo and contact sales. A separate consumer-facing product, Fluxx Grantseeker (for grant seekers), publishes tiered pricing but is a different product and is not the API surface described here.
-
-## WebSocket
-
-**No.** Fluxx does not publish a documented public WebSocket API. The REST API v2 is request/response REST over HTTPS with OAuth 2.0, and no `ws://`/`wss://` or server-push transport is documented. See [review.yml](review.yml).
-
-## Tags
-
-- Grants Management
-- Grantmaking
-- Nonprofit
-- Philanthropy
-- Foundations
-- REST API
-
-## Common Properties
-
-- [LinkedIn](https://www.linkedin.com/company/fluxx)
 - [Website](https://www.fluxx.io/)
-- [GitHub Organization](https://github.com/fluxxlabs)
 - [Documentation](https://www.fluxx.io/resource-center)
+- [Blog](https://www.fluxx.io/blog)
+- [GitHub](https://github.com/fluxxlabs)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 11.7** — emerging · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 71.4 |
+| Contract quality | 0.0 |
+| Contract governance | 0.0 |
+| Operational transparency | 2.6 |
+| Developer ergonomics | 11.9 |
+| Access clarity | 7.9 |
+
+**Agent readiness 0.0** — human-only
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | — |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | — |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | — |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 16.7** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/fluxx-grants/](https://apis.io/providers/fluxx-grants/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Fluxx: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/fluxx-grants/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
